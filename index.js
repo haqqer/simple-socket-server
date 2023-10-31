@@ -58,3 +58,12 @@ app.post("/broadcast", verifyApiKey, (req, res) => {
 server.listen(port, () => {
   console.log("listening on *:" + port);
 });
+
+process.on("SIGINT", () => {
+  server.close(() => console.log("process terminated ..."));
+  process.exit(0);
+});
+process.on("SIGTERM", () => {
+  server.close(() => console.log("process terminated ..."));
+  process.exit(0);
+});
