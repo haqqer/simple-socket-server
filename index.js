@@ -5,15 +5,18 @@ const http = require("http");
 const server = http.createServer(app);
 const { verifyApiKey } = require("./middleware");
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 let corsConfig = {
+  path: process.env.SOCKET_PATH || "",
   cors: {
     origin:
       process.env.NODE_ENV != "PRODUCTION" ? "*" : process.env.CORS_ORIGIN,
     methods: ["GET", "POST"],
   },
 };
+
+console.log(corsConfig);
 
 const io = require("socket.io")(server, corsConfig);
 
